@@ -106,6 +106,12 @@
 				<myTestSourceDirectory>${project.basedir}/src/it/java</myTestSourceDirectory>
 			</properties>
 		</profile>
+		<profile>
+   <id>production</id>
+   <properties>
+       <maven.test.skip>true</maven.test.skip>
+   </properties>
+</profile>
 	</profiles>
 
 </project>
