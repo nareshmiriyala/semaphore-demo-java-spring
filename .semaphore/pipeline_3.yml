@@ -1,0 +1,26 @@
+version: v1.0
+name: Pipeline 3
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: 'Block #1'
+    task:
+      jobs:
+        - name: Deploy
+          commands:
+            - cat deployment.yml | envsubst | tee deployment.yml
+            - kubectl apply -f deployment.yml
+      secrets:
+        - name: dockerhub
+        - name: production-db-auth
+        - name: production-k8s-auth
+      env_vars:
+        - name: DEFAULT_REGION
+          value: us-central1-c
+        - name: PROJECT_ID
+          value: sandbox-miriyaln
+      prologue:
+        commands:
+          - checkout
