@@ -25,10 +25,7 @@ blocks:
             - mvn -q package -Dmaven.test.skip=true
             - echo "$DOCKER_PASSWORD" | docker login  --username "$DOCKER_USERNAME" --password-stdin
             - 'docker pull "$DOCKER_USERNAME"/semaphore-demo-java-spring:latest || true'
-            - docker build \
-            - '    --cache-from "$DOCKER_USERNAME"/semaphore-demo-java-spring:lastest  \'
-            - '    --build-arg ENVIRONMENT="${ENVIRONMENT}" \'
-            - '    -t "$DOCKER_USERNAME"/semaphore-demo-java-spring:$SEMAPHORE_WORKFLOW_ID .'
+            - 'docker build --cache-from "$DOCKER_USERNAME"/semaphore-demo-java-spring:lastest --build-arg ENVIRONMENT="${ENVIRONMENT}" -t "$DOCKER_USERNAME"/semaphore-demo-java-spring:$SEMAPHORE_WORKFLOW_ID .'
             - 'docker push "$DOCKER_USERNAME"/semaphore-demo-java-spring:$SEMAPHORE_WORKFLOW_ID'
 promotions:
   - name: Deploy to kubernetes
